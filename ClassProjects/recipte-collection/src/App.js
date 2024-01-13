@@ -5,7 +5,20 @@ import { useEffect, useState } from 'react'
 function App() {
   const [recipeFormShown, showRecipeForm] = useState(false);
 
-  let submitRecipe = (event) => {};
+  let submitRecipe = (event) => {
+    event.preventDefault()
+
+    let newRecipeName = document.getElementById('newRecipeName').ariaValueMax;
+    let newRecipeInstructions = document.getElementById('newRecipeInstructions').value;
+
+    this.setState({recipes: [
+      {
+        name: newRecipeName,
+        instructions: newRecipeInstructions
+      }
+    ]
+  })
+};
 
   return (
     <div className="App">
