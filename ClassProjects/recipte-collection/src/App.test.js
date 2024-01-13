@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import App from './App';
 import userEvent from '@testing-library/user-event'
@@ -55,19 +55,29 @@ test("shows new recipe after adding", async () => {
   render(<App />);
 
   // Add recipe
-  let button = screen.getByRole('button', {name: 'Add Recipe'});
+  let button = screen.getByRole('button', { name: 'Add Recipe' });
   userEvent.click(button);
+
   // wait for the form/textbox to appear, used findBy because it returns a promise
-  let recipeNameBox = await screen.findByRole('textbox', {name: /Recipe name/i});
-  let recipeInstructionBox = screen.getByRole('textbox', {name: /instructions/i});
+  await waitFor(() => {
+    expect(screen.getByRole('textbox', { name: /Recipe name/i })).toBeInTheDocument();
+  });
+
+  let recipeNameBox = screen.getByRole('textbox', { name: /Recipe name/i });
+  let recipeInstructionBox = screen.getByRole('textbox', { name: /instructions/i });
+
   // add recipe
   const recipeName = 'Tofu Scramble Tacos';
   const recipeInstructions = "1. heat a skillet on medium with a dollop of coconut oil {enter} 2. warm flour tortillas";
   userEvent.type(recipeNameBox, recipeName);
   userEvent.type(recipeInstructionBox, recipeInstructions);
+
   // click the submit button
-  let submitButton = screen.getByRole('button');
+  let submitButton = screen.getByRole('button', { name: 'Submit' }); // Adjust this to your actual submit button text
   userEvent.click(submitButton);
-  // wait for text to appear, a timeout means it was never found
-  let recipe = await screen.findByText(/Name:.*Tofu Scramble Tacos/i);
+
+  // wait for the new recipe to appear in the list
+  await waitFor(() => {
+    expect(screen.getByText(/Name:.*Tofu Scramble Tacos/i)).toBeInTheDocument();
+  });
 });
