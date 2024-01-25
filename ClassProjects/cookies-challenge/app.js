@@ -7,7 +7,6 @@ const app = express()
 app.use(cookieParser())
 
 app.get('/login', (request, response) => {
-
   const { name } = request.query;
 
   if (name) {
