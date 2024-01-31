@@ -1,28 +1,23 @@
-const express = require("express");
-const app = express();
 
-app.use(express.json());
+let x = 5
 
-app.get("/", (request, response) => {
-  const user = request.query.user;
-  response.send(user + "!");
-});
+// if (x = 5) {
+//   console.log('seventeen')
+// } else {
+//   console.log('thirteen')
+// }
 
-const users = []
-
-app.post("/create_user", (request, response) => {
-  const { user } = request.body;
-  users.push({ username: user.username, password: user.password })
-
-  console.log(users)
-
-  response.json({ loggedIn: true, status: 'it worked' })
-});
-
-app.get("/users", (_,response) => {
-  response.json(users);
-})
-
-app.listen(4000, () => {
-  console.log('server started on port 4000')
-});
+switch (x) {
+  case 1: {
+    console.log('asdf')
+    break;
+  }
+  case 5: {
+    console.log('asdfasdf')
+    break;
+  }
+  default: {
+    console.log('asdfasdfasdfasdfasdf')
+    break;
+  }
+}
