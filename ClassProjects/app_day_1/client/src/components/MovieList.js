@@ -22,6 +22,7 @@ export default function MovieList({ movies }) {
   fetchMovies();
 }, []);
 
+
   return (
     <div>
       <h1>Movie List</h1>

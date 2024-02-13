@@ -10,7 +10,7 @@ const MovieSearch = ({ movies }) => {
 
   const handleSearch = () => {
     const matchingMovies = movies.filter(movie =>
-      movie.title && movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      movie.name && movie.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setSearchResults(matchingMovies);
   };
@@ -26,7 +26,7 @@ const MovieSearch = ({ movies }) => {
       <button onClick={handleSearch}>Search</button>
       <ul>
         {searchResults.map((movie, index) => (
-          <li key={index}>{movie.title}</li>
+          <li key={index}>{movie.name}</li>
         ))}
       </ul>
     </div>
