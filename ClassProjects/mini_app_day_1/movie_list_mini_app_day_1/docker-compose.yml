@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  ui:
+    build: ./client
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres
+    container_name: mini-app-day-one-database
+    environment:
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  server:
+    # server configuration
+    build:
+      context: ./server
+    ports:
+      - "5000:5000"
+    depends_on:
+        - db
+
+volumes:
+  postgres-data:
